@@ -44,8 +44,18 @@ class CafesController extends Controller
       return view('cafes/editar',['cafes'=>$datoscafe]);
 
       
+    }
+    public function actualizar($id)
+    {
+      $nombre_cafe=app()->request()->get('nombre');
+      $precio=app()->request()->get('precio');
+      $eslogan=app()->request()->get('frase');
+      $cafes=Cafes::findOrFail($id);
 
-
-     
+      $cafes->nombre_cafe= ($nombre_cafe!="")?$nombre_cafe:$cafes->nombre_cafe;
+      $cafes->precio=($precio!="")?$precio:$cafes->precio;
+      $cafes->eslogan=($eslogan!="")?$eslogan:$cafes->eslogan;
+      $cafes->update();
+      return response()->redirect('/');
     }
 }
